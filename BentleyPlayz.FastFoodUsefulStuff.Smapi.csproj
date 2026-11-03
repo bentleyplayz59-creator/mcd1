@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>BentleyPlayz.FastFoodUsefulStuff.Smapi</AssemblyName>
+    <RootNamespace>BentleyPlayz.FastFoodUsefulStuff.Smapi</RootNamespace>
+    <Version>3.8.0</Version>
+
+    <!--
+      Stardew Valley 1.6.x (this mod's documented target, 1.6.15) runs on .NET 6, so SMAPI 4.x mods target net6.0.
+      build.sh reads the game's own runtimeconfig.json and warns if your install wants something different.
+    -->
+    <TargetFramework>net6.0</TargetFramework>
+
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <EnableHarmony>false</EnableHarmony>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Finds the game + SMAPI references. Set the GamePath property (for example the build.sh game-path option) if auto-detection fails. -->
+    <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.3.2" />
+  </ItemGroup>
+
+</Project>

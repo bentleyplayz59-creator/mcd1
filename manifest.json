@@ -1,0 +1,9 @@
+{
+  "Name": "Bentley Playz Fast Food - SMAPI Component",
+  "Author": "Bentley Playz",
+  "Version": "3.8.0",
+  "Description": "Door locking and entrance rules, Windex damage and the first-time update announcement for Bentley Playz Fast Food & Useful Stuff. Install together with the Content Patcher pack of the same name.",
+  "UniqueID": "BentleyPlayz.FastFoodUsefulStuff.Smapi",
+  "EntryDll": "BentleyPlayz.FastFoodUsefulStuff.Smapi.dll",
+  "MinimumApiVersion": "4.1.10"
+}

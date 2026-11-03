@@ -1,0 +1,54 @@
+name: Build Bentley Playz Door Fix
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get source code
+        uses: actions/checkout@v4
+
+      - name: Set up Stardew Valley build environment
+        uses: Pathoschild/SMAPI-ModBuildWorkflow/add-build-environment@v1
+
+      - name: Build mod
+        shell: bash
+        run: |
+          project="$(find . -name 'BentleyPlayz.FastFoodUsefulStuff.Smapi.csproj' -print -quit)"
+          if [ -z "$project" ]; then
+            echo "Could not find the Bentley project file."
+            exit 1
+          fi
+          dotnet build "$project" --configuration Release
+
+      - name: Collect build output
+        shell: bash
+        run: |
+          mkdir -p built
+          cp bin/Release/net6.0/BentleyPlayz.FastFoodUsefulStuff.Smapi.dll built/
+          cp bin/Release/net6.0/*.zip built/ || true
+          ls -l built
+
+      - name: Save DLL into the repo (find it in the "built" folder)
+        shell: bash
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -f built
+          git commit -m "Add built DLL" || echo "Nothing new to commit"
+          git push
+
+      - name: Upload DLL as a run artifact too
+        uses: actions/upload-artifact@v4
+        with:
+          name: BentleyPlayz-Smapi-DLL
+          path: built/
